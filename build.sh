@@ -9,16 +9,23 @@ NAME="SemVerTest"
 BRANCH="main"
 MESSAGE="Release"
 
-if [[ -z $SUBLEVEL || $SUBLEVEL -eq 0 ]]; then
+# Se SUBLEVEL for vazio, não há ponto antes dele
+if [[ -z $SUBLEVEL ]]; then
     SUBLEVEL=""
 else
-    SUBLEVEL=".$SUBLEVEL"
+    SUBLEVEL=".$SUBLEVEL" # Sempre adiciona um ponto se houver sublevel, inclusive se for zero
 fi
 
+# Se EXTRAVERSION contiver "-rc", não adiciona ponto antes do EXTRAVERSION
 if [[ $EXTRAVERSION == *"-rc"* ]]; then
     FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL$EXTRAVERSION"
 else
-    FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL$EXTRAVERSION"
+    # Se o EXTRAVERSION for vazio, então precisa do ponto
+    if [[ -z $EXTRAVERSION ]]; then
+        FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL"
+    else
+        FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL.$EXTRAVERSION"
+    fi
 fi
 
 git add .
