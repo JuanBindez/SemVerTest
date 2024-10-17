@@ -9,7 +9,7 @@ NAME="SemVerTest"
 BRANCH="main"
 MESSAGE="Release"
 
-if [[ -z $SUBLEVEL ]]; then
+if [[ -z $SUBLEVEL || $SUBLEVEL -eq 0 ]]; then
     SUBLEVEL=""
 else
     SUBLEVEL=".$SUBLEVEL"
@@ -18,7 +18,7 @@ fi
 if [[ $EXTRAVERSION == *"-rc"* ]]; then
     FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL$EXTRAVERSION"
 else
-    FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL.$EXTRAVERSION"
+    FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL$EXTRAVERSION"
 fi
 
 git add .
