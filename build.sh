@@ -1,30 +1,28 @@
 #!/bin/bash
 
 VERSION=1
-PATCHLEVEL=1
-SUBLEVEL=
-EXTRAVERSION="-rc1"
+MINOR=2
+PATCH=0
+EXTRAVERSION=""
 
 NAME="SemVerTest"
 BRANCH="main"
 MESSAGE="Release"
 
-# Se SUBLEVEL for vazio, não há ponto antes dele
-if [[ -z $SUBLEVEL ]]; then
-    SUBLEVEL=""
+if [[ -z $PATCH ]]; then
+    PATCH=""
 else
-    SUBLEVEL=".$SUBLEVEL" # Sempre adiciona um ponto se houver sublevel, inclusive se for zero
+    PATCH=".$PATCH"
 fi
 
-# Se EXTRAVERSION contiver "-rc", não adiciona ponto antes do EXTRAVERSION
 if [[ $EXTRAVERSION == *"-rc"* ]]; then
-    FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL$EXTRAVERSION"
+    FULL_VERSION="$VERSION.$MINOR$PATCH$EXTRAVERSION"
 else
-    # Se o EXTRAVERSION for vazio, então precisa do ponto
+
     if [[ -z $EXTRAVERSION ]]; then
-        FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL"
+        FULL_VERSION="$VERSION.$MINOR$PATCH"
     else
-        FULL_VERSION="$VERSION.$PATCHLEVEL$SUBLEVEL.$EXTRAVERSION"
+        FULL_VERSION="$VERSION.$MINOR$PATCH.$EXTRAVERSION"
     fi
 fi
 
